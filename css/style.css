@@ -1,0 +1,165 @@
+/* ============================================
+   HELIOCENTRIC SOLAR SYSTEM — Core Styles
+   ============================================ */
+
+:root {
+  --glass-bg: rgba(10, 10, 30, 0.75);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --text-primary: #e8e8f0;
+  --text-secondary: #9898b0;
+  --accent: #64b5f6;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  height: 100vh; width: 100vw; background: #000; overflow: hidden;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+  color: var(--text-primary);
+}
+
+.skip-link {
+  position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+  background: var(--accent); color: #000; padding: 8px 16px;
+  border-radius: 0 0 8px 8px; z-index: 10000; text-decoration: none; font-weight: 600;
+}
+.skip-link:focus { top: 0; }
+
+#scene { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; cursor: grab; }
+#scene:active { cursor: grabbing; }
+
+/* Hover label */
+.hover-label {
+  position: fixed; z-index: 50; pointer-events: none;
+  font-size: 13px; font-weight: 600; color: #fff;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.9);
+  background: rgba(0,0,0,0.5); padding: 3px 10px; border-radius: 6px;
+  transform: translate(-50%, -100%); opacity: 0;
+  transition: opacity 0.2s ease; white-space: nowrap;
+}
+.hover-label.visible { opacity: 1; }
+
+/* Time display */
+.time-display {
+  position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+  font-size: 13px; color: var(--text-secondary);
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  padding: 6px 16px; border-radius: 10px;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  z-index: 50; font-variant-numeric: tabular-nums; letter-spacing: 0.3px;
+}
+
+/* Search */
+.search-container {
+  position: fixed; top: 20px; right: 20px; z-index: 90; width: 180px;
+}
+.search-input {
+  width: 100%; padding: 6px 12px; border-radius: 8px;
+  border: 1px solid var(--glass-border); background: var(--glass-bg);
+  color: var(--text-primary); font-size: 13px; outline: none;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.search-input::placeholder { color: var(--text-secondary); }
+.search-input:focus { border-color: var(--accent); }
+.search-results {
+  display: none; margin-top: 4px; background: var(--glass-bg);
+  border: 1px solid var(--glass-border); border-radius: 8px;
+  overflow: hidden; backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.search-result {
+  display: block; width: 100%; padding: 8px 12px; border: none;
+  background: none; color: var(--text-primary); font-size: 13px;
+  text-align: left; cursor: pointer; transition: background 0.15s;
+}
+.search-result:hover { background: rgba(100,181,246,0.15); }
+
+/* Planet Quick-Nav */
+.planet-nav {
+  position: fixed; top: 50%; left: 16px; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 8px; z-index: 80;
+}
+.nav-dot {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.3); cursor: pointer;
+  transition: all 0.2s ease; padding: 0;
+}
+.nav-dot:hover {
+  transform: scale(1.4); border-color: rgba(255,255,255,0.8);
+  box-shadow: 0 0 8px rgba(255,255,255,0.3);
+}
+.nav-dot:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* Minimap */
+.minimap {
+  position: fixed; bottom: 80px; right: 16px; width: 180px; height: 180px;
+  border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--glass-border); background: rgba(0,0,5,0.6); z-index: 60;
+}
+.minimap canvas { display: block; width: 100%; height: 100%; }
+
+/* PiP */
+.pip-container {
+  position: fixed; top: 70px; right: 16px; width: 200px; height: 220px;
+  border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--glass-border); background: rgba(0,0,5,0.6); z-index: 70;
+}
+.pip-container canvas { display: block; width: 100%; height: 200px; }
+.pip-label {
+  display: block; text-align: center; font-size: 11px;
+  color: var(--text-secondary); padding: 3px;
+  background: var(--glass-bg);
+}
+
+/* Tour overlay */
+.tour-overlay {
+  position: fixed; top: 60px; left: 50%; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 12px;
+  background: var(--glass-bg); border: 1px solid var(--glass-border);
+  padding: 8px 16px; border-radius: 10px;
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  z-index: 90; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+}
+.tour-overlay.visible { opacity: 1; pointer-events: auto; }
+.tour-overlay span { font-size: 13px; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.tour-stop-btn {
+  font-size: 12px; padding: 4px 12px; border-radius: 6px;
+  border: 1px solid var(--accent); background: rgba(100,181,246,0.15);
+  color: var(--accent); cursor: pointer; transition: background 0.2s;
+}
+.tour-stop-btn:hover { background: rgba(100,181,246,0.3); }
+
+/* Loading screen */
+.loading-screen {
+  position: fixed; inset: 0; z-index: 9999; background: #000005;
+  display: flex; align-items: center; justify-content: center;
+  transition: opacity 0.5s ease;
+}
+.loading-screen.fade-out { opacity: 0; pointer-events: none; }
+.loading-content { text-align: center; }
+.loading-sun {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffd200, #f7971e, #ff512f);
+  box-shadow: 0 0 30px rgba(255,128,0,0.6), 0 0 60px rgba(255,100,0,0.3);
+  margin: 0 auto 24px; animation: loadingPulse 1.5s ease-in-out infinite alternate;
+}
+@keyframes loadingPulse {
+  0% { transform: scale(1); box-shadow: 0 0 30px rgba(255,128,0,0.6); }
+  100% { transform: scale(1.1); box-shadow: 0 0 50px rgba(255,128,0,0.8), 0 0 80px rgba(255,100,0,0.4); }
+}
+#loading-text { font-size: 14px; color: var(--text-secondary); margin-bottom: 16px; }
+.loading-bar-track {
+  width: 200px; height: 3px; background: rgba(255,255,255,0.1);
+  border-radius: 2px; margin: 0 auto; overflow: hidden;
+}
+.loading-bar {
+  width: 0%; height: 100%; background: linear-gradient(90deg, #ff8800, #ffd200);
+  border-radius: 2px; transition: width 0.3s ease;
+}
+
+/* Info badge */
+.info-badge {
+  display: none; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px;
+  background: rgba(100,181,246,0.2); color: var(--accent);
+  padding: 2px 8px; border-radius: 4px;
+  border: 1px solid rgba(100,181,246,0.3); margin-left: 8px; align-self: center;
+}

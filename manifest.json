@@ -1,0 +1,16 @@
+{
+  "name": "Heliocentric Solar System",
+  "short_name": "Solar System",
+  "description": "Interactive 3D solar system visualization with real astronomical data",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#000005",
+  "theme_color": "#000005",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
